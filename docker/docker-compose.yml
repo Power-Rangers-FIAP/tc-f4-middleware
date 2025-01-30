@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  eureka-server:
+    build:
+      context: ../eureka-server  # Caminho para o módulo eureka-server
+      dockerfile: Dockerfile
+    container_name: "eureka-server"
+    ports:
+      - "8761:8761"
+    environment:
+      - TZ=America/Sao_Paulo
+
+  api-gateway:
+    build:
+      context: ../api-gateway  # Caminho para o módulo api-gateway
+      dockerfile: Dockerfile
+    container_name: "api-gateway"
+    ports:
+      - "8086:8080"
+    depends_on:
+      - eureka-server
+    environment:
+      - TZ=America/Sao_Paulo

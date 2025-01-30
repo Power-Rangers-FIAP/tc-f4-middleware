@@ -1,6 +1,9 @@
 server:
   port: 5555
 
+app:
+  allowed-origin-patterns: "http://localhost:8080,http://localhost:8081,http://localhost:8082,http://localhost:8083,http://localhost:8084,http://localhost:8085"
+
 spring:
   application:
     name: tc-f4-middleware-api-gateway
@@ -46,10 +49,9 @@ spring:
 
 eureka:
   client:
-    register-with-eureka: true
-    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
   instance:
-    lease-renewal-interval-in-seconds: 30
     instanceId: ${spring.application.name}
 
 management:
