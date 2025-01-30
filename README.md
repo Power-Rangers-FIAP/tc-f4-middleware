@@ -46,5 +46,6 @@ The application consists of the following microservices:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/tc-f4-middleware.git
+   git clone https://github.com/Power-Rangers-FIAP/tc-f4-middleware.git
+   
    cd tc-f4-middleware
