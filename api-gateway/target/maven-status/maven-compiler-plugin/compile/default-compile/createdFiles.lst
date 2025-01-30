@@ -1,1 +1,3 @@
+com\fiap\gateway\controllers\ApplicationController.class
+com\fiap\gateway\configurations\SecurityConfig.class
 com\fiap\gateway\ApiGatewayApplication.class

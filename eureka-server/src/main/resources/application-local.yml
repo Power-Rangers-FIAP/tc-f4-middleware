@@ -1,0 +1,5 @@
+eureka:
+  datacenter: default
+  environment: local
+  instance:
+    hostname: localhost
