@@ -1,0 +1,69 @@
+server:
+  port: 5555
+
+spring:
+  application:
+    name: tc-f4-middleware-api-gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: ms-client-service
+          uri: lb://tc-f4-ms-client
+          predicates:
+            - Path=/ms_client/**
+          filters:
+            - RewritePath=/ms_client/(?<path>.*), /$\{path}
+
+        - id: ms-product-catalog-service
+          uri: lb://tc-f4-ms-product-catalog
+          predicates:
+            - Path=/ms_product_catalog/**
+          filters:
+            - RewritePath=/ms_product_catalog/(?<path>.*), /$\{path}
+
+        - id: ms-order-manager-service
+          uri: lb://tc-f4-ms-order-manager
+          predicates:
+            - Path=/ms_order_manager/**
+          filters:
+            - RewritePath=/ms_order_manager/(?<path>.*), /$\{path}
+
+        - id: ms-logistics-service
+          uri: lb://tc-f4-ms-logistics
+          predicates:
+            - Path=/ms_logistics/**
+          filters:
+            - RewritePath=/ms_logistics/(?<path>.*), /$\{path}
+
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    lease-renewal-interval-in-seconds: 30
+    instanceId: ${spring.application.name}
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: gateway,health,info,metrics,routes,refresh
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
